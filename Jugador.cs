@@ -1,4 +1,4 @@
-class jugador
+class Jugador
     {
         private string nombre;
         private int clase, vida = 200, vidaMaxima = 200;
@@ -6,7 +6,7 @@ class jugador
         private int[] movimientosEntero = new int[4], probabilidades = new int[9], daños = new int[9];
         private string[] movimientos = new string[4], movimientosDisponibles = new string[9];
         private bool[] protect = new bool[2], poison = new bool[3], bleed = new bool[3];
-        public jugador()
+        public Jugador()
         {
             probabilidades[0] = 100; probabilidades[1] = 45; probabilidades[2] = 30; probabilidades[3] = 3; probabilidades[4] = 15;
             probabilidades[5] = 40; probabilidades[6] = 40; probabilidades[7] = 40; probabilidades[8] = 100;
@@ -68,7 +68,7 @@ class jugador
         }
         public static void setModo(int modo)
         {
-            jugador.modo = modo;
+            Jugador.modo = modo;
         }
         public void setVida(int vida, bool dañoCura)
         {
@@ -173,7 +173,7 @@ class jugador
             }
             ordenarMovimientos();
         }
-        public void procesarMovimiento(jugador jugadorDef, int movimiento)
+        public void procesarMovimiento(Jugador jugadorDef, int movimiento)
         {
             int probabilidad;
             Random r = new Random();
@@ -331,7 +331,7 @@ class jugador
             }
 
         }
-        public int preguntarMovimiento(jugador jugador1, jugador jugador2, jugador jugador3, jugador jugador4)
+        public int preguntarMovimiento(Jugador jugador1, Jugador jugador2, Jugador jugador3, Jugador jugador4)
         {
             int movimiento;
             Console.WriteLine();
@@ -374,7 +374,7 @@ class jugador
             }
             return movimiento;
         }
-        public void mostrarEstado(jugador jugador1, jugador jugador2, jugador jugador3, jugador jugador4)
+        public void mostrarEstado(Jugador jugador1, Jugador jugador2, Jugador jugador3, Jugador jugador4)
         {
             Console.Write(jugador1.getNombre() + ": " + jugador1.getVida() + " HP");
             switch (jugador1.getClase())
@@ -489,7 +489,7 @@ class jugador
                     break;
             }
         }
-        public void avanceTurno(jugador jugadorDef)
+        public void avanceTurno(Jugador jugadorDef)
         {
             if (jugadorDef.getProtectPoisonBleed("Bleed", 0))
             {
