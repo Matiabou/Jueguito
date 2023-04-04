@@ -1,27 +1,16 @@
 using System.Collections.Generic;
 
-int modo, movimiento, enemigo;
+int movimiento, enemigo;
 bool necesitaEnemigo, juegoActivo = true;
 bool[] back = { false, false, false, false };
 List<Jugador> jugadores = new List<Jugador>();
 Jugador jugadorDef = new Jugador();
 Console.ForegroundColor = ConsoleColor.White;
-do
-{
-    modo = IngresarEnteroEnRango("Select mode\n1: 1 vs 1\n2: 2 vs 2");
-    if (modo != 1 && modo != 2) Console.Clear(); Console.WriteLine("Choose: 1, 2");
-} while (modo != 1 && modo != 2);
-Jugador.setModo(modo);
-if (modo != 2)
-{
-    jugadores[2].setVidaDeterminada(-3000);
-    jugadores[3].setVidaDeterminada(-3000);
-}
+int cantJugadores = Funciones.IngresarEnteroEnRango("Cantidad de jugadores (2-10)", 2, 10);
+Jugador.SetCantJugadores(cantJugadores);
 Console.Clear();
-for (int i = 0; i < jugadores.Count(); i++)
-{
-    jugadores[i].setNombre(ingresarTexto("Introduce the name of the Player " + (i + 1)));
-}
+Inicializacion();
+SetNombres();
 mostrarInstrucciones();
 foreach (var c in jugadores)
 {
@@ -126,39 +115,31 @@ while ((jugadores[0].getVida() > 0 || jugadores[1].getVida() > 0) && (jugadores[
     for (int i = 0; i <= 3; i++) back[i] = false;
 }
 mostrarGanador(jugadores[0], jugadores[1], jugadores[2], jugadores[3], modo);
-int ingresarEnteroEnRango
 
-static private int ingresarEntero(string mensaje)
-{
-    int n = 0;
-    Console.WriteLine(mensaje);
-    do
-    {
-        try
-        {
-            n = int.Parse(Console.ReadLine());
-        }
-        catch (FormatException)
-        {
-            excepciones("FormatException");
-        }
-        catch (OverflowException)
-        {
-            excepciones("OverflowException");
-        }
-        catch (Exception)
-        {
-            excepciones("Exception");
-        }
-    } while (n == 0);
-
-    return n;
+void Inicializacion(){
+    for (int i = 0; i < cantJugadores; i++){
+        int cantMovimientos = 4;
+        List<int> movimientos = new List<int>();
+        string nombre = Funciones.IngresarTexto("Introduce the name of the Player " + (i + 1));
+        int clase = Funciones.IngresarEnteroEnRango(nombre + "\n\nSelect class\n1: Tank (400 HP)\n2: Lucky (Probabilities duplicated)\n3: Cheater (6 Movements)", 1, 3);
+        if (clase == 3) cantMovimientos = 6;
+        for (int j = 0; j < )
+    }
 }
+
+void SetNombres()
+{
+    for (int i = 0; i < jugadores.Count(); i++)
+    {
+        jugadores[i].nombre = ingresarTexto("Introduce the name of the Player " + (i + 1));
+    }
+}
+
 static private bool verNecesidadEnemigo(int movimiento)
 {
     return movimiento != 5 && movimiento != 6;
 }
-private static void clase(Jugador Jugador)
+void clase(Jugador Jugador)
 {
     do
     {
@@ -205,32 +186,8 @@ public static Jugador procesarEnemigo(int n, Jugador jugador1, Jugador jugador2,
     }
     return jugDef;
 }
-static private string ingresarTexto(string mensaje)
-{
-    string texto = "";
-    bool while_ = true;
-    Console.WriteLine(mensaje);
-    do
-    {
-        try
-        {
-            texto = Console.ReadLine();
-        }
-        catch (Exception)
-        {
-            excepciones("Exception");
-            while_ = false;
-        }
-    } while (while_ == false);
 
-    return texto;
-}
-public static void presionarTecla()
-{
-    Console.WriteLine("Press any key to continue");
-    Console.ReadKey();
-    Console.Clear();
-}
+
 private static void mostrarInstrucciones()
 {
     Console.Clear();
